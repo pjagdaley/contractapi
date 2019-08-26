@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.5oceanstech.contract</groupId>
 	<artifactId>contractapi</artifactId>
-	<version>0.7</version>
+	<version>1.1</version>
 	<name>contractapi</name>
 	<description>Main Contract Service for Spring Boot</description>
 		
@@ -117,5 +117,4 @@
 			</plugin>			
 		</plugins>
 	</build>
-
 </project>

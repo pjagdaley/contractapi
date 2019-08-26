@@ -9,7 +9,7 @@ public class UIAttribute implements Serializable {
 			
 	private Integer attributeId;
     
-    private String attributeName;
+    private String attributeLabel;
     
     private String attributeValue;
     
@@ -23,8 +23,8 @@ public class UIAttribute implements Serializable {
 		return attributeId;
 	}
 
-	public String getAttributeName() {
-		return attributeName;
+	public String getAttributeLabel() {
+		return attributeLabel;
 	}
 
 	public String getAttributeValue() {
@@ -47,8 +47,8 @@ public class UIAttribute implements Serializable {
 		this.attributeId = attributeId;
 	}
 
-	public void setAttributeName(String attributeName) {
-		this.attributeName = attributeName;
+	public void setAttributeLabel(String attributeLabel) {
+		this.attributeLabel = attributeLabel;
 	}
 
 	public void setAttributeValue(String attributeValue) {

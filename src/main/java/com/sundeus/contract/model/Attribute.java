@@ -11,7 +11,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-
 @Entity
 @Table(name = "Attributes")
 @EntityListeners(AuditingEntityListener.class)
@@ -69,8 +68,7 @@ public class Attribute implements Serializable {
     private Boolean isEditablePostExecution;
     
     private Boolean isSearchEnabled;
-    
-    
+        
     private Integer sequenceNo;
     
     private Boolean isDeleted;

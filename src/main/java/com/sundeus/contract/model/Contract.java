@@ -28,9 +28,15 @@ public class Contract implements Serializable {
 	@Column(name="contractType_id")
 	private Integer contractTypeId;
 	
+	@Transient
+	private String contractTypeName;
+	
 	@Column(name="transactionType_id")
 	//@NotNull
 	private Integer transactionTypeId;
+	
+	@Transient
+	private String transactionTypeName;
 
     @NotBlank
     private String name;
@@ -43,8 +49,13 @@ public class Contract implements Serializable {
     @Column(name="template_Id")
 	private Integer templateId;
     
+    private String DocumentId;
+    
     @Column(name="status_Id")
     private Integer statusId;
+    
+    @Transient
+	private String statusName;
     
     private Boolean aiEnabled;
     
@@ -52,11 +63,10 @@ public class Contract implements Serializable {
     
     private Boolean isDeleted;
     
-    //@Column(name="updateCount")
+    
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer updateCount;
     
-    //@Column(name="createdBy")
     private String createdBy;
 
     @Column(nullable = false, updatable = false)
@@ -198,5 +208,37 @@ public class Contract implements Serializable {
 
 	public void setIsMandatoryFilled(Boolean isMandatoryFilled) {
 		this.isMandatoryFilled = isMandatoryFilled;
+	}
+
+	public String getDocumentId() {
+		return DocumentId;
+	}
+
+	public void setDocumentId(String documentId) {
+		DocumentId = documentId;
+	}
+	
+	public void setTransactionTypeName(String transactionTypeName) {
+		this.transactionTypeName = transactionTypeName;
+	}
+
+	public void setContractTypeName(String contractTypeName) {
+		this.contractTypeName = contractTypeName;
+	}
+
+	public void setStatusName(String statusName) {
+		this.statusName = statusName;
+	}
+
+	public String getContractTypeName() {
+		return contractTypeName;
+	}
+
+	public String getTransactionTypeName() {
+		return transactionTypeName;
+	}
+
+	public String getStatusName() {
+		return statusName;
 	}		
 }

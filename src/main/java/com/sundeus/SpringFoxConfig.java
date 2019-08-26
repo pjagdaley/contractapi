@@ -4,6 +4,7 @@ import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -36,7 +37,11 @@ public class SpringFoxConfig {
                 "LICENSE URL",
                 Collections.emptyList()
         );
-    }
+    }    
+    
+    /*public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/custom-path").setViewName("forward:/documentation-folder/index.html");
+    }*/
    /* private ApiInfo getApiInfo() {
         return new ApiInfo(
                 "TITLE",

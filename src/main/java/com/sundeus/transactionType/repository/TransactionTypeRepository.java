@@ -1,6 +1,6 @@
-package com.sundeus.contract.repository;
+package com.sundeus.transactionType.repository;
 
-import com.sundeus.contract.model.TransactionType;
+import com.sundeus.transactionType.model.TransactionType;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

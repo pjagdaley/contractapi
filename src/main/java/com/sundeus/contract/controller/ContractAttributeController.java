@@ -69,7 +69,7 @@ public class ContractAttributeController {
 			
 				UIAttribute uiAttribute = new UIAttribute();
 				uiAttribute.setAttributeId(attribute.getId());
-				uiAttribute.setAttributeName(attribute.getName());
+				uiAttribute.setAttributeLabel(attribute.getLabel());
 				uiAttribute.setAttributeValue(contractAttribute.getAttributeValue());
 				uiAttribute.setSectionId(attribute.getSectionId());
 				uiAttribute.setSequenceNo(attribute.getSequenceNo());
@@ -103,7 +103,7 @@ public class ContractAttributeController {
 			
 				UIAttribute uiAttribute = new UIAttribute();
 				uiAttribute.setAttributeId(attribute.getId());
-				uiAttribute.setAttributeName(attribute.getName());
+				uiAttribute.setAttributeLabel(attribute.getLabel());
 				uiAttribute.setAttributeValue(contractAttribute.getAttributeValue());
 				uiAttribute.setSectionId(attribute.getSectionId());
 				uiAttribute.setSequenceNo(attribute.getSequenceNo());
