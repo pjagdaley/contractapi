@@ -12,6 +12,8 @@ import com.sundeus.contract.repository.ContractRepository;
 import com.sundeus.contract.repository.ContractStatusRepository;
 import com.sundeus.contract.repository.ContractTypeRepository;
 import com.sundeus.transactionType.repository.TransactionTypeRepository;
+import com.sundeus.user.model.User;
+import com.sundeus.user.repository.UserRepository;
 
 import javax.validation.Valid;
 
@@ -35,6 +37,9 @@ public class ContractController {
 	
 	@Autowired
 	TransactionTypeRepository transactionTypeRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 	
 	
 	 //@RequestMapping("/") 
@@ -61,7 +66,9 @@ public class ContractController {
 			DashboardContract dashboardContract = new DashboardContract();
 			dashboardContract.setId(contract.getId());
 			dashboardContract.setContractName(contract.getName());
-			dashboardContract.setCreatedBy(contract.getCreatedBy());
+			//dashboardContract.setCreatedBy(contract.getCreatedBy());			
+			User user = userRepository.findById(Integer.parseInt(contract.getCreatedBy())).get();
+			dashboardContract.setCreatedBy(user.getFirstName()+ " " +user.getLastName());
 			dashboardContract.setCreatedDate(contract.getCreateDate());
 			dashboardContract.setContractType((contractTypeRepository.findById(contract.getContractTypeId()).get().getName()));
 			dashboardContract.setStatus(contractStatusRepository.findById(contract.getStatusId()).get().getName());
@@ -82,7 +89,9 @@ public class ContractController {
 			DashboardContract dashboardContract = new DashboardContract();
 			dashboardContract.setId(contract.getId());
 			dashboardContract.setContractName(contract.getName());
-			dashboardContract.setCreatedBy(contract.getCreatedBy());
+			//dashboardContract.setCreatedBy(contract.getCreatedBy());			
+			User user = userRepository.findById(Integer.parseInt(contract.getCreatedBy())).get();
+			dashboardContract.setCreatedBy(user.getFirstName()+ " " +user.getLastName());
 			dashboardContract.setCreatedDate(contract.getCreateDate());
 			dashboardContract.setContractType((contractTypeRepository.findById(contract.getContractTypeId()).get().getName()));
 			dashboardContract.setStatus(contractStatusRepository.findById(contract.getStatusId()).get().getName());
