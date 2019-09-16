@@ -3,6 +3,7 @@ package com.sundeus.user.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.sundeus.user.exception.UserNotFoundException;
 import com.sundeus.user.model.User;
@@ -40,8 +41,23 @@ public class UserController {
 	//Create a new User
 	@CrossOrigin
 	@PostMapping("/users")
-	public User createUser(@Valid @RequestBody User user) {
-	    return userRepository.save(user);
+	//public User createUser(@Valid @RequestBody User user) {
+	//    return userRepository.save(user);
+	//}
+	
+	public User createUser(@Valid @ModelAttribute User user, @RequestParam(required=false)  MultipartFile profilePicture) {
+		
+		if (profilePicture != null && !profilePicture.isEmpty()) {			
+			try 
+			{	            
+	            byte[] image = profilePicture.getBytes();
+	            user.setProfilePic(image);
+			}
+        	catch (Exception e) {
+        		e.printStackTrace();        		
+        	}			
+		}		
+		 return userRepository.save(user);		
 	}
 	
 	//Get a Single User
@@ -54,8 +70,10 @@ public class UserController {
 	//Update a User
 	@CrossOrigin
 	@PutMapping("/users/{id}")
+	/*public User updateUser(@PathVariable(value = "id") Integer userId,
+	                                        @Valid @RequestBody User userDetails, @RequestParam(required=false)  MultipartFile profilePicture) {*/
 	public User updateUser(@PathVariable(value = "id") Integer userId,
-	                                        @Valid @RequestBody User userDetails) {
+            @Valid @ModelAttribute User userDetails, @RequestParam(required=false)  MultipartFile profilePicture) {
 
 		User user = userRepository.findById(userId)
 	            .orElseThrow(() -> new UserNotFoundException("User", "id", userId));
@@ -70,7 +88,18 @@ public class UserController {
 		
 		user.setPassword(userDetails.getPassword());
 		user.setContactNumber(userDetails.getContactNumber());
-		user.setProfilePic(userDetails.getProfilePic());
+		
+		if (profilePicture != null && !profilePicture.isEmpty()) {			
+			try 
+			{	            
+	            byte[] image = profilePicture.getBytes();
+	            user.setProfilePic(image);
+			}
+        	catch (Exception e) {
+        		e.printStackTrace();        		
+        	}			
+		}	
+		//user.setProfilePic(userDetails.getProfilePic());
 		user.setDesignation(userDetails.getDesignation());
 		user.setOrganizationLevel(userDetails.getOrganizationLevel());
 		user.setDepartment(userDetails.getDepartment());

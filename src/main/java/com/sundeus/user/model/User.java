@@ -44,7 +44,10 @@ public class User implements Serializable {
 	private String emailAddress;
 	private String password;
 	private String contactNumber;
-	private Blob profilePic;
+	
+	//private Blob profilePic;
+	@Lob
+	private byte[] profilePic;
 	@NotBlank
 	private String designation;
 	
@@ -117,7 +120,7 @@ public class User implements Serializable {
 		return contactNumber;
 	}
 
-	public Blob getProfilePic() {
+	public byte[] getProfilePic() {
 		return profilePic;
 	}
 
@@ -197,7 +200,7 @@ public class User implements Serializable {
 		this.contactNumber = contactNumber;
 	}
 
-	public void setProfilePic(Blob profilePic) {
+	public void setProfilePic(byte[] profilePic) {
 		this.profilePic = profilePic;
 	}
 
@@ -243,5 +246,5 @@ public class User implements Serializable {
 
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
-	}
+	}	
 }
