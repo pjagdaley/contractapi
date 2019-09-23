@@ -143,6 +143,7 @@ public class ContractController {
 	    contract.setStatusName(contractStatusRepository.findById(contractDetails.getStatusId()).get().getName());	    
 	    contract.setIsMandatoryFilled(contractDetails.getIsMandatoryFilled());
 	    contract.setAiEnabled(contractDetails.getAiEnabled());
+	    contract.setCompletedStep(contractDetails.getCompletedStep());
 	    contract.setIsDeleted(contractDetails.getIsDeleted());
 	    contract.setUpdateCount(contractDetails.getUpdateCount());
 	    contract.setCreatedBy(contractDetails.getCreatedBy());

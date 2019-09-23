@@ -67,6 +67,8 @@ public class Contract implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer updateCount;
     
+    private Integer completedStep;
+    
     private String createdBy;
 
     @Column(nullable = false, updatable = false)
@@ -240,5 +242,13 @@ public class Contract implements Serializable {
 
 	public String getStatusName() {
 		return statusName;
+	}
+
+	public Integer getCompletedStep() {
+		return completedStep;
+	}
+
+	public void setCompletedStep(Integer completedStep) {
+		this.completedStep = completedStep;
 	}		
 }

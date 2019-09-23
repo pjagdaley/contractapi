@@ -1,9 +1,11 @@
 package com.sundeus.contractEntitlement.EntitlementController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,11 +74,12 @@ public class EntitlementController {
 	public List<EntitlementApproval> getEntitlementApproval(){
 		return entitlementApprovalRepository.findAll();
 		}
-	//////////ontra
-	@GetMapping("/contractEntitlements")
-	public List<ContractEntitlements> getAllContractEntitlements() {
 		
-		List<ContractEntitlements> list= contractEntitlementRepository.findAll();
+	//Get All Contract Entitlement
+	@GetMapping("/contracts/{contractId}/contractEntitlements")
+	public List<ContractEntitlements> getAllContractEntitlements(@PathVariable (value = "contractId") Integer contractId) {
+		
+		List<ContractEntitlements> list = contractEntitlementRepository.findByContractId(contractId);
 		for(ContractEntitlements ent : list) {
 			Optional<EntitlementType> entitlementType=entitlementTypeRepository.getEntitlementTypeById(ent.getEntitlementTypeId());
 			ent.setEntitlementTypeName(entitlementType.get().getName());
@@ -87,12 +90,37 @@ public class EntitlementController {
 		    Optional<EntitlementReminderNotice> entitlementReminderNotice=entitlementReminderNoticeRepository.getEntitlementReminderNoticeById(ent.getEntitlementReminderNoticeId());
 		    ent.setEntitlementReminderNoticeName(entitlementReminderNotice.get().getName());
 		    Optional<EntitlementTimeLines> entitlementTimeLines=entitlmentTimeLinesRepository.getEntitlementTimeLineById(ent.getEntitlementTimeLineId());
-		    ent.setEntitlementTimeLineName(entitlementTimeLines.get().getName());
-		    
+		    ent.setEntitlementTimeLineName(entitlementTimeLines.get().getName());		    
 		}
 		return list;
 	}
-	////////////
+	
+	//Get Single Contract Entitlement
+	@GetMapping("/contracts/{contractId}/contractEntitlements/{contractEntitlementId}")
+	public List<ContractEntitlements> getContractEntitlement(@PathVariable (value = "contractId") Integer contractId,
+																@PathVariable (value = "contractEntitlementId") Integer contractEntitlementId) {
+		
+		List<ContractEntitlements> list = new ArrayList<ContractEntitlements>();
+		Optional<ContractEntitlements> optionalList = contractEntitlementRepository.findByIdAndContractId(contractEntitlementId, contractId);
+		
+		if (optionalList.isPresent()) {
+			ContractEntitlements ent = optionalList.get();
+			Optional<EntitlementType> entitlementType=entitlementTypeRepository.getEntitlementTypeById(ent.getEntitlementTypeId());
+			ent.setEntitlementTypeName(entitlementType.get().getName());
+			Optional<EntitlementFrequency> entitlementFrequency=entitlementFrequencyRepository.getEntitlementFrequencyById(ent.getEntitlementFrequencyId());
+		    ent.setEntitlementFrequencyName(entitlementFrequency.get().getName());
+		    Optional<EntitlementApproval> entitlementApproval=entitlementApprovalRepository.getEntitlementApprovalById(ent.getEntitlementApprovalId());
+		    ent.setEntitlementApprovalName(entitlementApproval.get().getName());
+		    Optional<EntitlementReminderNotice> entitlementReminderNotice=entitlementReminderNoticeRepository.getEntitlementReminderNoticeById(ent.getEntitlementReminderNoticeId());
+		    ent.setEntitlementReminderNoticeName(entitlementReminderNotice.get().getName());
+		    Optional<EntitlementTimeLines> entitlementTimeLines=entitlmentTimeLinesRepository.getEntitlementTimeLineById(ent.getEntitlementTimeLineId());
+		    ent.setEntitlementTimeLineName(entitlementTimeLines.get().getName());
+		    list.add(ent);
+		}		
+		return list;
+	}
+	
+	@CrossOrigin
 	@PostMapping("/contracts/{contractId}/contractEntitlements")	
 	public List<ContractEntitlements> createcontractEntitlement(@PathVariable (value = "contractId") Integer contractId,
 											@RequestBody List<ContractEntitlements> contractEntitlements) {
@@ -104,7 +132,7 @@ public class EntitlementController {
 		
 	}
 	
-	
+	@CrossOrigin
 	@PutMapping("/contracts/{contractId}/contractEntitlements/{id}")
 	public ContractEntitlements updatecontractEntitlement(@PathVariable (value = "contractId") Integer contractId,
 														@PathVariable(value = "contractEntitlementId") Integer contractEntitlementId,
