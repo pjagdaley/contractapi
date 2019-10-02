@@ -61,6 +61,8 @@ public class Contract implements Serializable {
     
     private Boolean isMandatoryFilled;
     
+    private Boolean isGenerated;
+    
     private Boolean isDeleted;
     
     
@@ -250,5 +252,13 @@ public class Contract implements Serializable {
 
 	public void setCompletedStep(Integer completedStep) {
 		this.completedStep = completedStep;
+	}
+
+	public Boolean getIsGenerated() {
+		return isGenerated;
+	}
+
+	public void setIsGenerated(Boolean isGenerated) {
+		this.isGenerated = isGenerated;
 	}		
 }

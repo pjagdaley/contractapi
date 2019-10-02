@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.sundeus.auditLog.model.AuditLog;
+import com.sundeus.auditLog.repository.AuditLogRepository;
 import com.sundeus.contract.exception.ResourceNotFoundException;
 import com.sundeus.contract.model.Contract;
 import com.sundeus.contract.model.DashboardContract;
@@ -40,6 +42,9 @@ public class ContractController {
 	
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	AuditLogRepository auditLogRepository;
 	
 	
 	 //@RequestMapping("/") 
@@ -142,6 +147,7 @@ public class ContractController {
 	    contract.setStatusId(contractDetails.getStatusId());
 	    contract.setStatusName(contractStatusRepository.findById(contractDetails.getStatusId()).get().getName());	    
 	    contract.setIsMandatoryFilled(contractDetails.getIsMandatoryFilled());
+	    contract.setIsGenerated(contractDetails.getIsGenerated());
 	    contract.setAiEnabled(contractDetails.getAiEnabled());
 	    contract.setCompletedStep(contractDetails.getCompletedStep());
 	    contract.setIsDeleted(contractDetails.getIsDeleted());
@@ -150,6 +156,15 @@ public class ContractController {
 	    contract.setUpdatedBy(contractDetails.getUpdatedBy());
 	    
 	    Contract updatedContract = contractRepository.save(contract);
+	    
+	    //
+	    AuditLog auditLog = new AuditLog();
+	    auditLog.setContractId(contractId);
+	    auditLog.setAction("Contract updated");
+	    auditLog.setCreateDate(new Date());
+	    auditLog.setCreatedBy(contractDetails.getUpdatedBy());
+	    auditLogRepository.save(auditLog);	    
+	    
 	    return updatedContract;
 	}
 	
